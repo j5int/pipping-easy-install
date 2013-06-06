@@ -52,6 +52,7 @@ def main():
     for p in args.packages:
         package, version = p, None
 
+        package_name = None
         if os.path.exists(package):
             exe = package
         elif package.startswith('http'):
@@ -66,10 +67,17 @@ def main():
 
             (exe, md5) = PyPiDownloader().download_package(
                 package, version=version, python_platform='win32', out=sys.stdout)
+            package_name = package
 
         if 'win' in sys.platform:
             with RegisterPy():
                 install_python_module(exe)
+            if package_name:
+                installed_version = package_version(package_name)
+                if installed_version:
+                    print '%s version %s now installed' % (package_name, installed_version)
+                else:
+                    print "Installation completed, but package %s not installed!?" % (package_name)
         else:
             print 'Would execute: ' + exe
 

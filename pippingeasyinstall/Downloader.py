@@ -18,10 +18,34 @@ class Downloader(object):
                 self.out.flush()
                 self.printed_out = progress
 
-    def download_file(self, url, file, out=None):
+    def download_file(self, url, fname=None, md5_digest=None, cachedir=None, out=None):
+
+        if cachedir:
+            fname = os.path.join(cachedir, fname)
+
+        if os.path.exists(fname):
+            if md5_digest:
+                with open(fname, 'rb') as f:
+                    actual_md5_digest = hashlib.md5(f.read()).hexdigest()
+                if actual_md5_digest.lower() != md5_digest.lower():
+                    os.remove(fname)
+        if os.path.exists(fname):
+            return (fname, actual_md5_digest)
+
+        self._download_file(url, fname, out=out)
+
+        with open(fname, 'rb') as f:
+            actual_md5_digest = hashlib.md5(f.read()).hexdigest()
+        if md5_digest:
+            if actual_md5_digest.lower() != md5_digest.lower():
+                raise Exception('Failed to download %s. Mismatched md5sum. Expected %s, but is %s.' % (url, md5_digest, actual_md5_digest))
+
+        return (fname, actual_md5_digest)
+
+    def _download_file(self, url, fname, out=None):
         self.printed_out = 0
         self.out = out
-        urllib.urlretrieve(url, file, self.reporthook)
+        urllib.urlretrieve(url, fname, self.reporthook)
         if out:
             out.write('\n')
 
@@ -51,27 +75,8 @@ class PyPiDownloader(Downloader):
             raise Exception("Error getting package %s%s from PyPI. No windows installer package found for Python version %s (%s)"
                         % (package_name, ' (%s)'%(version) if version else ' (latest)', python_version, python_platform))
         matching_urls = sorted(matching_urls, key=lambda u: u['packagetype'])
-        url = matching_urls[0]
 
-        fname = url['filename']
-        if cachedir:
-            fname = os.path.join(cachedir, fname)
-        if os.path.exists(fname):
-            if 'md5_digest' in url:
-                with open(fname, 'rb') as f:
-                    md5_digest = hashlib.md5(f.read()).hexdigest()
-                if md5_digest.lower() != url['md5_digest'].lower():
-                    os.remove(fname)
-        if os.path.exists(fname):
-            return fname
-
-        self.download_file(url['url'], fname, out=out)
-        if 'md5_digest' in url:
-            with open(fname, 'rb') as f:
-                md5_digest = hashlib.md5(f.read()).hexdigest()
-            if md5_digest.lower() != url['md5_digest'].lower():
-                raise Exception('Failed to download %s. Mismatched md5sum. Expected %s, but is %s.' % (url['url'], url['md5_digest'], md5_digest))
-        return fname
+        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0]['md5_digest'], cachedir=cachedir, out=out)
 
 
 

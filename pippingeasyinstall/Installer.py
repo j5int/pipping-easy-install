@@ -1,12 +1,17 @@
+import argparse
 
 __author__ = 'matth'
 
-from pippingeasyinstall.Downloader import Downloader
+from pippingeasyinstall.Downloader import Downloader, PyPiDownloader
 from pippingeasyinstall.RegisterPy import RegisterPy
-from pywinauto import application
+try:
+    from pywinauto import application
+except:
+    pywinauto = None
 import logging
 import os
 import sys
+import pkg_resources
 
 def install_python_module(exe, next_count=3, wait_for_finish=120):
     app = application.Application.start(os.path.abspath(exe))
@@ -32,19 +37,41 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     logging.info('Waiting for Dialog to close')
     app.Setup.WaitNot("exists enabled visible ready", timeout=10, retry_interval=1)
 
+def package_version(package):
+    try:
+        d = pkg_resources.get_distribution(package)
+        return d.version
+    except pkg_resources.DistributionNotFound:
+        return None
+
 def main():
-    assert len(sys.argv)>1
-    url = sys.argv[1]
-    if len(sys.argv)>2:
-        exe = sys.argv[2]
-    else:
-        exe = os.path.basename(url)
+    parser = argparse.ArgumentParser(description='Pipping Easy Install')
+    parser.add_argument('packages', nargs='+', help="Stuff to install")
+    args = parser.parse_args()
 
-    if not os.path.exists(exe):
-        Downloader().download_file(url, exe, sys.stdout)
+    for p in args.packages:
+        package, version = p, None
 
-    with RegisterPy():
-        install_python_module(exe)
+        if os.path.exists(package):
+            exe = package
+        elif package.startswith('http'):
+            (exe, md5) = Downloader().download_file(package, os.path.basename(package).split['?'][0].split('#')[0], out=sys.stdout)
+        else:
+            if '==' in p:
+                (package,version) = p.split('==')
+            installed_version = package_version(package)
+            if installed_version:
+                print '%s version %s already installed' % (package, installed_version)
+                continue
+
+            (exe, md5) = PyPiDownloader().download_package(
+                package, version=version, python_platform='win32', out=sys.stdout)
+
+        if 'win' in sys.platform:
+            with RegisterPy():
+                install_python_module(exe)
+        else:
+            print 'Would execute: ' + exe
 
 if __name__ == "__main__":
     main()

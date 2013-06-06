@@ -12,7 +12,10 @@
 
 import sys
 
-from _winreg import *
+try:
+    from _winreg import *
+except:
+    pass
 
 # tweak as necessary
 version = sys.version[:3]
@@ -62,7 +65,3 @@ class RegisterPy(object):
         finally:
             CloseKey(reg)
 
-if __name__ == "__main__":
-    with RegisterPy():
-        import time
-        time.sleep(3)

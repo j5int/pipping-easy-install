@@ -33,11 +33,18 @@ class RegisterPy(object):
     def __enter__(self):
         self.a_set = False
         self.b_set = False
-        reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+        self.created = False
+        try:
+            reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+        except EnvironmentError:
+            reg = CreateKey(HKEY_LOCAL_MACHINE, regpath)
+            self.created = True
+
+
         try:
             self.prev_values = {
-                installkey: QueryValue(reg, installkey),
-                pythonkey: QueryValue(reg, pythonkey)
+                installkey: "" if self.created else QueryValue(reg, installkey),
+                pythonkey: "" if self.created else QueryValue(reg, pythonkey)
             }
             if self.prev_values[installkey] != installpath:
                 SetValue(reg, installkey, REG_SZ, installpath)
@@ -47,7 +54,7 @@ class RegisterPy(object):
                     SetValue(reg, pythonkey, REG_SZ, pythonpath)
                     self.b_set = True
             except:
-                if self.a_set:
+                if self.a_set and not self.created:
                     SetValue(reg, installkey, REG_SZ, self.prev_values[installkey])
                 raise
         finally:
@@ -57,10 +64,10 @@ class RegisterPy(object):
         reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
         try:
             try:
-                if self.a_set:
+                if self.a_set and not self.created:
                     SetValue(reg, installkey, REG_SZ, self.prev_values[installkey])
             finally:
-                if self.b_set:
+                if self.b_set and not self.created:
                     SetValue(reg, pythonkey, REG_SZ, self.prev_values[pythonkey])
         finally:
             CloseKey(reg)

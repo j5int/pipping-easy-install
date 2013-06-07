@@ -22,6 +22,8 @@ __author__ = 'matth'
 
 def get_enabled_button(window, name):
     try:
+        if not window.Exists():
+            return None
         button = window[name]
         if button.IsVisible() and button.IsEnabled():
             return button
@@ -31,26 +33,30 @@ def get_enabled_button(window, name):
 
 def install_python_module(exe, next_count=3, wait_for_finish=120):
     app = application.Application.start('"%s"' % os.path.abspath(exe))
+    _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
 
-    logging.info('Waiting for Setup dialog')
-    app.Setup.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
+def _press_buttons(app, dialogname, next_name, finish_name, next_count, finishdialogname=None):
+    finishdialogname = finishdialogname or dialogname
+
+    logging.info('Waiting for %s dialog', dialogname)
+    app[dialogname].Wait("exists enabled visible ready", timeout=10, retry_interval=1)
 
     i = 0
     while app.windows_():
-        next = get_enabled_button(app.Setup, 'Next')
+        next = get_enabled_button(app[dialogname], next_name)
         finish = None
         if next:
             i += 1
-            logging.info('Pressing Next (%d)', i)
+            logging.info('Pressing %s (%d)', next_name, i)
             next.SetFocus().Click()
-            app.Setup.Wait("exists enabled visible ready", timeout=3, retry_interval=1)
+
             if i >= next_count:
-                finish = get_enabled_button(app.Setup, 'Finish')
+                finish = get_enabled_button(app[finishdialogname], finish_name)
         else:
-            finish = get_enabled_button(app.Setup, 'Finish')
+            finish = get_enabled_button(app[finishdialogname], finish_name)
 
         if finish:
-            logging.info('Pressing Finish')
+            logging.info('Pressing %s', finish_name)
             finish.SetFocus().Click()
             time.sleep(0.5)
         else:
@@ -68,20 +74,7 @@ def uninstall_python_module(package_name):
 
     app = application.Application.start('"%s" -u "%s"' % (uninstall_exe, install_log))
 
-    logging.info('Waiting for Please confirm dialog')
-    app['Please confirm'].Wait("exists enabled visible ready", timeout=10, retry_interval=1)
-    logging.info('Waiting for Yes button')
-    app['Please confirm'].Yes.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
-    app['Please confirm'].Yes.SetFocus().Click()
-
-    logging.info('Waiting for Uninstall Finished! dialog')
-    app['Uninstall Finished!'].Wait("exists enabled visible ready", timeout=120, retry_interval=1)
-    logging.info('Waiting for OK button')
-    app['Uninstall Finished!'].OK.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
-    app['Uninstall Finished!'].OK.SetFocus().Click()
-
-    logging.info('Waiting for Dialog to close')
-    app['Uninstall Finished!'].WaitNot("exists enabled visible ready", timeout=10, retry_interval=1)
+    _press_buttons(app, 'Please confirm', 'Yes', 'OK', next_count=1, finishdialogname='Uninstall Finished!')
 
 def package_version(package):
     try:

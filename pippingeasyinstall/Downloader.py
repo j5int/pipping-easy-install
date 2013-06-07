@@ -6,7 +6,10 @@ import sys
 import urllib
 import os
 import hashlib
+from pippingeasyinstall import PackageStore
 
+class PackageNotFoundException(Exception):
+    pass
 
 class Downloader(object):
 
@@ -52,6 +55,29 @@ class Downloader(object):
 class PyPiDownloader(Downloader):
 
     def download_package(self, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None):
+        python_version = python_version or sys.version[:3]
+        if python_platform is None:
+            python_platform = sys.platform
+
+        if version and PackageStore.has_package_version(package_name, version):
+            r = self._download_package_from_local(package_name, version, python_version, python_platform, cachedir, out)
+            if r:
+                return r
+        try:
+            return self._download_package_from_pypi(package_name, version, python_version, python_platform, cachedir, out)
+        except PackageNotFoundException, e:
+            r = self._download_package_from_local(package_name, version, python_version, python_platform, cachedir, out)
+            if r is None:
+                raise
+            return r
+
+    def _download_package_from_local(self, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None):
+        urls = PackageStore.find_package_urls(package_name, version)
+        if urls:
+            return self._download_package(urls, package_name, version, python_version, python_platform, cachedir, out)
+        return None
+
+    def _download_package_from_pypi(self, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None):
         url = 'http://pypi.python.org/pypi/%s/%s/json' % (package_name, version) if version \
             else 'http://pypi.python.org/pypi/%s/json' % (package_name)
         f = urllib.urlopen(url)
@@ -59,32 +85,51 @@ class PyPiDownloader(Downloader):
             if f.getcode() == 200:
                 package_info = json.loads(f.read())
             else:
-                raise Exception("Error getting package %s%s from PyPI. %s (%d)" % (package_name, ' (%s)'%(version) if version else ' (latest)', f.read(), f.getcode()))
+                raise PackageNotFoundException("Error getting package %s%s from PyPI. %s (%d)" % (package_name, ' (%s)'%(version) if version else ' (latest)', f.read(), f.getcode()))
         finally:
             f.close()
-        python_version = python_version or sys.version[:3]
-        if python_platform is None:
-            python_platform = sys.platform
+
+        return self._download_package(package_info['urls'], package_name, version, python_version, python_platform, cachedir, out)
+
+    def _download_package(self, urls, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None, raise_not_found=True):
         matching_urls = []
-        for url in package_info['urls']:
+        for url in urls:
             if url['python_version'] == python_version and \
                     url['packagetype'] in ('bdist_wininst', 'bdist_msi') and \
                     python_platform in url['filename']:
                 matching_urls.append(url)
         if not matching_urls:
-            raise Exception("Error getting package %s%s from PyPI. No windows installer package found for Python version %s (%s)"
-                        % (package_name, ' (%s)'%(version) if version else ' (latest)', python_version, python_platform))
+            if raise_not_found:
+                raise PackageNotFoundException("Error getting package %s%s from PyPI. No windows installer package found for Python version %s (%s)"
+                            % (package_name, ' (%s)'%(version) if version else ' (latest)', python_version, python_platform))
+            return None
         matching_urls = sorted(matching_urls, key=lambda u: u['packagetype'])
 
-        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0]['md5_digest'], cachedir=cachedir, out=out)
+        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0].get('md5_digest',None), cachedir=cachedir, out=out)
 
 
 
 
 if __name__ == "__main__":
     print PyPiDownloader().download_package(
+        'pywin32',
+        version='218',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
+    print PyPiDownloader().download_package(
+        'pywin32',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
+    print PyPiDownloader().download_package(
         'zope.interface',
-        #version='12.1.0',
+        version='4.0.4',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
+    print PyPiDownloader().download_package(
+        'zope.interface',
         cachedir='/tmp',
         python_platform='win32',
         out=sys.stdout)

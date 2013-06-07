@@ -64,9 +64,10 @@ def main():
             if installed_version:
                 print '%s version %s already installed' % (package, installed_version)
                 continue
+            cachedir = os.environ.get('PIP_DOWNLOAD_CACHE', None)
 
             (exe, md5) = PyPiDownloader().download_package(
-                package, version=version, out=sys.stdout)
+                package, version=version, out=sys.stdout, cachedir=cachedir)
             package_name = package
 
         if 'win' in sys.platform:

@@ -95,7 +95,7 @@ class PyPiDownloader(Downloader):
         matching_urls = []
         for url in urls:
             if url['python_version'] == python_version and \
-                    url['packagetype'] in ('bdist_wininst', 'bdist_msi') and \
+                    url['packagetype'] == 'bdist_wininst' and \
                     python_platform in url['filename']:
                 matching_urls.append(url)
         if not matching_urls:

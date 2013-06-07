@@ -111,6 +111,13 @@ class PyPiDownloader(Downloader):
 
 
 if __name__ == "__main__":
+
+    print PyPiDownloader().download_package(
+        'pycairo',
+        #version='218',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
     print PyPiDownloader().download_package(
         'pywin32',
         version='218',

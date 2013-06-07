@@ -15,7 +15,23 @@ _packages = {
                 ]
             }
         }
-    }
+    },
+    "pycairo" : {
+        "latest_version" : "1.8.10",
+        "versions": {
+            "1.8.10" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pycairo-1.8.10.win32-py2.7.exe",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url" : "http://ftp.acc.umu.se/pub/gnome/binaries/win32/pycairo/1.8/pycairo-1.8.10.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
 }
 
 def has_package_version(package_name, version):

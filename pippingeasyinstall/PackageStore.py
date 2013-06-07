@@ -32,6 +32,33 @@ _packages = {
             }
         }
     },
+    "psutil" : {
+        "latest_version" : "0.7.0",
+        "versions": {
+            "0.7.0" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "psutil-0.7.0.win32-py2.7.exe",
+                        "md5_digest" : "5696fbc8b2da9603b393f119166a28a1",
+                        "url" : "https://psutil.googlecode.com/files/psutil-0.7.0.win32-py2.7.exe"
+                    }
+                ]
+            },
+            "0.6.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "psutil-0.6.1.win32-py2.7.exe",
+                        "md5_digest" : "8d73121603c0aaf87e0056bd615755f5",
+                        "url" : "http://psutil.googlecode.com/files/psutil-0.6.1.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
 }
 
 def has_package_version(package_name, version):

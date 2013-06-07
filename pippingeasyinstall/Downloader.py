@@ -113,6 +113,18 @@ class PyPiDownloader(Downloader):
 if __name__ == "__main__":
 
     print PyPiDownloader().download_package(
+        'Twisted',
+        version='11.1.0',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
+    print PyPiDownloader().download_package(
+        'Twisted',
+        #version='11.1.0',
+        cachedir='/tmp',
+        python_platform='win32',
+        out=sys.stdout)
+    print PyPiDownloader().download_package(
         'psutil',
         version='0.6.1',
         cachedir='/tmp',

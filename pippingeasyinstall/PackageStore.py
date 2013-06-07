@@ -59,7 +59,25 @@ _packages = {
             }
         }
     },
+    "Twisted" : {
+        # For some reason the Twisted bdist_wininst installer for 11.1.0 isn't on PyPI
+        "versions": {
+            "11.1.0" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "Twisted-11.1.0.win32-py2.7.exe",
+                        "md5_digest" : "3815ebb4b60eda48f0b3a240bdceac64",
+                        "url" : "http://twistedmatrix.com/Releases/Twisted/11.1/Twisted-11.1.0.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
 }
+
+
 
 def has_package_version(package_name, version):
     return package_name in _packages and version in _packages[package_name]["versions"]

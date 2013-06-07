@@ -66,7 +66,7 @@ def main():
                 continue
 
             (exe, md5) = PyPiDownloader().download_package(
-                package, version=version, python_platform='win32', out=sys.stdout)
+                package, version=version, out=sys.stdout)
             package_name = package
 
         if 'win' in sys.platform:

@@ -1,18 +1,33 @@
 import argparse
-import subprocess
-
-__author__ = 'matth'
-
+import time
 from pippingeasyinstall.Downloader import Downloader, PyPiDownloader
 from pippingeasyinstall.RegisterPy import RegisterPy
 try:
     from pywinauto import application
 except:
     pywinauto = None
+
+try:
+    from pywinauto.findbestmatch import MatchError
+except:
+    MatchError = None
+
 import logging
 import os
 import sys
 import pkg_resources
+
+__author__ = 'matth'
+
+
+def get_enabled_button(window, name):
+    try:
+        button = window[name]
+        if button.IsVisible() and button.IsEnabled():
+            return button
+    except MatchError, e:
+        pass
+    return None
 
 def install_python_module(exe, next_count=3, wait_for_finish=120):
     app = application.Application.start('"%s"' % os.path.abspath(exe))
@@ -20,23 +35,27 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     logging.info('Waiting for Setup dialog')
     app.Setup.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
 
-    for i in range(next_count):
-        logging.info('Waiting for Next button')
-        app.Setup.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
-        app.Setup.Next.Wait("exists enabled visible ready", timeout=10, retry_interval=1)
-        logging.info('Dialog Message: %s', '\n'.join(app.Setup.Static1.Texts() or []))
-        logging.info('Pressing Next (%d)', i+1)
-        app.Setup.Next.SetFocus().Click()
+    i = 0
+    while app.windows_():
+        next = get_enabled_button(app.Setup, 'Next')
+        finish = None
+        if next:
+            i += 1
+            logging.info('Pressing Next (%d)', i)
+            next.SetFocus().Click()
+            app.Setup.Wait("exists enabled visible ready", timeout=3, retry_interval=1)
+            if i >= next_count:
+                finish = get_enabled_button(app.Setup, 'Finish')
+        else:
+            finish = get_enabled_button(app.Setup, 'Finish')
 
-    logging.info('Waiting for Finish button')
-    app.Setup.Wait("exists enabled visible ready", timeout=60, retry_interval=1)
-    app.Setup.Finish.Wait("exists enabled visible ready", timeout=120, retry_interval=1)
-    logging.info('Dialog Message: %s', '\n'.join(app.Setup.Static1.Texts() or []))
-    logging.info('Pressing Finish (%d)', i+1)
-    app.Setup.Finish.SetFocus().Click()
+        if finish:
+            logging.info('Pressing Finish')
+            finish.SetFocus().Click()
+            time.sleep(0.5)
+        else:
+            time.sleep(1)
 
-    logging.info('Waiting for Dialog to close')
-    app.Setup.WaitNot("exists enabled visible ready", timeout=10, retry_interval=1)
 
 def uninstall_python_module(package_name):
     install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%package_name))

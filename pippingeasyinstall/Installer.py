@@ -128,14 +128,7 @@ def main():
             with RegisterPy():
                 install_python_module(exe)
             if package_name:
-                count = 0
-
-                while count < 7 and not installed_version:
-                    installed_version = package_version(package_name)
-                    if not installed_version:
-                        time.sleep(1)
-                    count += 1
-
+                installed_version = package_version(package_name)
                 if installed_version:
                     print '%s version %s now installed' % (package_name, installed_version)
                 else:

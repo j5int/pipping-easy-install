@@ -37,15 +37,15 @@ class RegisterPy(object):
         self.is_all_users = None
         try:
             reg = OpenKey(HKEY_CURRENT_USER, regpath)
-            self.is_all_users = True
+            self.is_all_users = False
         except EnvironmentError:
             try:
                 reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
-                self.is_all_users = False
+                self.is_all_users = True
             except EnvironmentError:
                 reg = CreateKey(HKEY_CURRENT_USER, regpath)
                 self.created = True
-                self.is_all_users = True
+                self.is_all_users = False
 
         try:
             self.prev_values = {

@@ -34,12 +34,18 @@ class RegisterPy(object):
         self.a_set = False
         self.b_set = False
         self.created = False
+        self.is_all_users = None
         try:
-            reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+            reg = OpenKey(HKEY_CURRENT_USER, regpath)
+            self.is_all_users = True
         except EnvironmentError:
-            reg = CreateKey(HKEY_LOCAL_MACHINE, regpath)
-            self.created = True
-
+            try:
+                reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+                self.is_all_users = False
+            except EnvironmentError:
+                reg = CreateKey(HKEY_CURRENT_USER, regpath)
+                self.created = True
+                self.is_all_users = True
 
         try:
             self.prev_values = {
@@ -61,7 +67,7 @@ class RegisterPy(object):
             CloseKey(reg)
 
     def __exit__(self, exc_type, exc_value, traceback):
-        reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+        reg = OpenKey(HKEY_LOCAL_MACHINE if self.is_all_users else HKEY_CURRENT_USER, regpath)
         try:
             try:
                 if self.a_set and not self.created:

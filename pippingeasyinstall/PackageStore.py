@@ -28,6 +28,50 @@ _packages = {
                         "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
                         "url" : "http://ftp.acc.umu.se/pub/gnome/binaries/win32/pycairo/1.8/pycairo-1.8.10.win32-py2.7.exe"
                     }
+                ],
+                "dlls" : [
+                    {
+                        "files": ["bin/zlib1.dll"],
+                        "name": "zlib",
+                        "version" : "1.2.5",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib_1.2.5-2_win32.zip"
+                    },
+                    {
+                        "files": ["bin/libcairo-2.dll", "bin/libcairo-gobject-2.dll", "bin/libcairo-script-interpreter-2.dll"],
+                        "name": "cairo",
+                        "version" : "1.10.2",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo_1.10.2-2_win32.zip"
+                    },
+                    {
+                        "files": ["bin/libpng14-14.dll"],
+                        "name": "libpng",
+                        "version" : "1.4.3",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libpng_1.4.3-1_win32.zip"
+                    },
+                    {
+                        "files": ["bin/freetype6.dll"],
+                        "name": "Freetype",
+                        "version" : "2.4.2",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/freetype_2.4.2-1_win32.zip"
+                    },
+                    {
+                        "files": ["bin/libfontconfig-1.dll"],
+                        "name": "Fontconfig",
+                        "version" : "2.8.0",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/fontconfig_2.8.0-2_win32.zip"
+                    },
+                    {
+                        "files": ["bin/libexpat-1.dll"],
+                        "name": "expat",
+                        "version" : "2.0.1",
+                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/expat_2.0.1-1_win32.zip"
+                    }
                 ]
             }
         }

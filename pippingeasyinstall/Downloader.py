@@ -23,6 +23,9 @@ class Downloader(object):
 
     def download_file(self, url, fname=None, md5_digest=None, cachedir=None, out=None):
 
+        if fname is None:
+            fname = os.path.basename(url.split('?')[0].split('#')[0])
+
         if cachedir:
             fname = os.path.join(cachedir, fname)
 
@@ -64,7 +67,8 @@ class PyPiDownloader(Downloader):
             if r:
                 return r
         try:
-            return self._download_package_from_pypi(package_name, version, python_version, python_platform, cachedir, out)
+            (fname, actual_md5_digest) = self._download_package_from_pypi(package_name, version, python_version, python_platform, cachedir, out)
+            return (fname, actual_md5_digest, [])
         except PackageNotFoundException, e:
             r = self._download_package_from_local(package_name, version, python_version, python_platform, cachedir, out)
             if r is None:
@@ -72,9 +76,17 @@ class PyPiDownloader(Downloader):
             return r
 
     def _download_package_from_local(self, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None):
-        urls = PackageStore.find_package_urls(package_name, version)
+        urls, dlls = PackageStore.find_package_urls(package_name, version)
         if urls:
-            return self._download_package(urls, package_name, version, python_version, python_platform, cachedir, out)
+            (fname, actual_md5_digest) = self._download_package(urls, package_name, version, python_version, python_platform, cachedir, out)
+            downloaded_dlls = []
+            for dll in dlls:
+                (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out)
+                for file in dll['files']:
+                    downloaded_dlls.append((file, zip_fname))
+
+            return (fname, actual_md5_digest, downloaded_dlls)
+
         return None
 
     def _download_package_from_pypi(self, package_name, version=None, python_version=None, python_platform=None, cachedir=None, out=None):
@@ -112,49 +124,49 @@ class PyPiDownloader(Downloader):
 
 if __name__ == "__main__":
 
-    print PyPiDownloader().download_package(
-        'Twisted',
-        version='11.1.0',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'Twisted',
-        #version='11.1.0',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'psutil',
-        version='0.6.1',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'Twisted',
+    #     version='11.1.0',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'Twisted',
+    #     #version='11.1.0',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'psutil',
+    #     version='0.6.1',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
     print PyPiDownloader().download_package(
         'pycairo',
         #version='218',
         cachedir='/tmp',
         python_platform='win32',
         out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'pywin32',
-        version='218',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'pywin32',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'zope.interface',
-        version='4.0.4',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
-    print PyPiDownloader().download_package(
-        'zope.interface',
-        cachedir='/tmp',
-        python_platform='win32',
-        out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'pywin32',
+    #     version='218',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'pywin32',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'zope.interface',
+    #     version='4.0.4',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'zope.interface',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)

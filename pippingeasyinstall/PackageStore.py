@@ -34,42 +34,42 @@ _packages = {
                         "files": ["bin/zlib1.dll"],
                         "name": "zlib",
                         "version" : "1.2.5",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "453d63205afcd648f5d6f9ed59f1cc82",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib_1.2.5-2_win32.zip"
                     },
                     {
                         "files": ["bin/libcairo-2.dll", "bin/libcairo-gobject-2.dll", "bin/libcairo-script-interpreter-2.dll"],
                         "name": "cairo",
                         "version" : "1.10.2",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "97c03ea128f9e3d4e32044a7520b74a9",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo_1.10.2-2_win32.zip"
                     },
                     {
                         "files": ["bin/libpng14-14.dll"],
                         "name": "libpng",
                         "version" : "1.4.3",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "44ee062641a204f65f0e96720fe57282",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libpng_1.4.3-1_win32.zip"
                     },
                     {
                         "files": ["bin/freetype6.dll"],
                         "name": "Freetype",
                         "version" : "2.4.2",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "3087ab1ad08716621fdb43e94f2b3bc1",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/freetype_2.4.2-1_win32.zip"
                     },
                     {
                         "files": ["bin/libfontconfig-1.dll"],
                         "name": "Fontconfig",
                         "version" : "2.8.0",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "1ec9bc0123bc8b2d9e273272bfeb9795",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/fontconfig_2.8.0-2_win32.zip"
                     },
                     {
                         "files": ["bin/libexpat-1.dll"],
                         "name": "expat",
                         "version" : "2.0.1",
-                        "md5_digest" : "21b17e99f5a606a1e2008067fa5d82ab",
+                        "md5_digest" : "99da6bef2cfb051ecda4d70ff24ed149",
                         "url": "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/expat_2.0.1-1_win32.zip"
                     }
                 ]
@@ -129,5 +129,5 @@ def has_package_version(package_name, version):
 def find_package_urls(package_name, version=None):
     if package_name in _packages:
         version = version or _packages[package_name]['latest_version']
-        return _packages[package_name]["versions"][version]['urls']
+        return _packages[package_name]["versions"][version]['urls'], _packages[package_name]["versions"][version].get('dlls', [])
     return None

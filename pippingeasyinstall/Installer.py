@@ -1,4 +1,6 @@
 import argparse
+import shutil
+import tempfile
 import time
 from pippingeasyinstall.Downloader import Downloader, PyPiDownloader
 from pippingeasyinstall.RegisterPy import RegisterPy
@@ -32,7 +34,10 @@ def get_enabled_button(window, name):
     return None
 
 def install_python_module(exe, next_count=3, wait_for_finish=120):
-    app = application.Application.start('"%s"' % os.path.abspath(exe))
+    dir = tempfile.mkdtemp(suffix='pippingeasyinstall')
+    texe = os.path.abspath(os.path.join(dir, os.path.basename(exe)))
+    shutil.copy(os.path.abspath(exe), texe)
+    app = application.Application.start('"%s"' % texe)
     _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
 
 def _press_buttons(app, dialogname, next_name, finish_name, next_count, finishdialogname=None):

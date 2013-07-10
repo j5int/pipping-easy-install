@@ -83,7 +83,7 @@ class PyPiDownloader(Downloader):
             for dll in dlls:
                 (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out)
                 for file in dll['files']:
-                    downloaded_dlls.append((file, zip_fname))
+                    downloaded_dlls.append((file, zip_fname, dll['destination']))
 
             return (fname, actual_md5_digest, downloaded_dlls)
 

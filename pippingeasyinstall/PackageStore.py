@@ -32,6 +32,7 @@ _packages = {
                 "dlls" : [
                     {
                         "files": ["bin/zlib1.dll"],
+                        "destination": "cairo",
                         "name": "zlib",
                         "version" : "1.2.5",
                         "md5_digest" : "453d63205afcd648f5d6f9ed59f1cc82",
@@ -39,6 +40,7 @@ _packages = {
                     },
                     {
                         "files": ["bin/libcairo-2.dll", "bin/libcairo-gobject-2.dll", "bin/libcairo-script-interpreter-2.dll"],
+                        "destination": "cairo",
                         "name": "cairo",
                         "version" : "1.10.2",
                         "md5_digest" : "97c03ea128f9e3d4e32044a7520b74a9",
@@ -46,6 +48,7 @@ _packages = {
                     },
                     {
                         "files": ["bin/libpng14-14.dll"],
+                        "destination": "cairo",
                         "name": "libpng",
                         "version" : "1.4.3",
                         "md5_digest" : "44ee062641a204f65f0e96720fe57282",
@@ -53,6 +56,7 @@ _packages = {
                     },
                     {
                         "files": ["bin/freetype6.dll"],
+                        "destination": "cairo",
                         "name": "Freetype",
                         "version" : "2.4.2",
                         "md5_digest" : "3087ab1ad08716621fdb43e94f2b3bc1",
@@ -60,6 +64,7 @@ _packages = {
                     },
                     {
                         "files": ["bin/libfontconfig-1.dll"],
+                        "destination": "cairo",
                         "name": "Fontconfig",
                         "version" : "2.8.0",
                         "md5_digest" : "1ec9bc0123bc8b2d9e273272bfeb9795",
@@ -67,6 +72,7 @@ _packages = {
                     },
                     {
                         "files": ["bin/libexpat-1.dll"],
+                        "destination": "cairo",
                         "name": "expat",
                         "version" : "2.0.1",
                         "md5_digest" : "99da6bef2cfb051ecda4d70ff24ed149",

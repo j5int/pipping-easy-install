@@ -2,6 +2,7 @@ import argparse
 import shutil
 import tempfile
 import time
+from zipfile import ZipFile
 from pippingeasyinstall.Downloader import Downloader, PyPiDownloader
 from pippingeasyinstall.RegisterPy import RegisterPy
 try:
@@ -67,6 +68,14 @@ def _press_buttons(app, dialogname, next_name, finish_name, next_count, finishdi
         else:
             time.sleep(1)
 
+def install_dll(location, dll, zip, dest):
+    dll_fname = dll.split('/')[-1]
+    dll_dir=os.path.join(location, dest)
+    with ZipFile(zip, 'r') as zipfile:
+        dll_data = zipfile.read(dll)
+    with open(os.path.join(dll_dir, dll_fname), 'wb') as f:
+        f.write(dll_data)
+
 
 def uninstall_python_module(package_name):
     install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%package_name))
@@ -98,6 +107,7 @@ def main():
         package, version = p, None
 
         package_name = None
+        dlls = []
         if os.path.exists(package):
             if args.uninstall:
                 raise ValueError('Cannot uninstall from exe: please use package name')
@@ -125,7 +135,7 @@ def main():
 
                 cachedir = os.environ.get('PIP_DOWNLOAD_CACHE', None)
 
-                (exe, md5) = PyPiDownloader().download_package(
+                (exe, md5, dlls) = PyPiDownloader().download_package(
                     package, version=version, out=sys.stdout, cachedir=cachedir)
                 package_name = package
 
@@ -136,6 +146,10 @@ def main():
                 installed_version = package_version(package_name)
                 if installed_version:
                     print '%s version %s now installed' % (package_name, installed_version)
+                    d = pkg_resources.get_distribution(package)
+                    if d and getattr(d, 'location', None):
+                        for dll, zip, dest in dlls:
+                            install_dll(d.location, dll, zip, dest)
                 else:
                     print "Installation completed, but package %s not installed!?" % (package_name)
 

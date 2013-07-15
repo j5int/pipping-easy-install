@@ -143,11 +143,17 @@ if __name__ == "__main__":
     #     python_platform='win32',
     #     out=sys.stdout)
     print PyPiDownloader().download_package(
-        'pycairo',
-        #version='218',
+        'py2exe',
+        #version='0.6.9',
         cachedir='/tmp',
         python_platform='win32',
         out=sys.stdout)
+    # print PyPiDownloader().download_package(
+    #     'pycairo',
+    #     #version='218',
+    #     cachedir='/tmp',
+    #     python_platform='win32',
+    #     out=sys.stdout)
     # print PyPiDownloader().download_package(
     #     'pywin32',
     #     version='218',

@@ -109,6 +109,22 @@ _packages = {
             }
         }
     },
+    "py2exe" : {
+        "latest_version" : "0.6.9",
+        "versions": {
+            "0.6.9" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "py2exe-0.6.9.win32-py2.7.exe",
+                        "md5_digest" : "b7899302e70596defe3b7e8c95cd15c1",
+                        "url" : "http://downloads.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpy2exe%2Ffiles%2Fpy2exe%2F0.6.9%2F&ts=1373628132&use_mirror=tenet"
+                    }
+                ]
+            }
+        }
+    },
     "Twisted" : {
         # For some reason the Twisted bdist_wininst installer for 11.1.0 isn't on PyPI
         "versions": {
@@ -136,4 +152,4 @@ def find_package_urls(package_name, version=None):
     if package_name in _packages:
         version = version or _packages[package_name]['latest_version']
         return _packages[package_name]["versions"][version]['urls'], _packages[package_name]["versions"][version].get('dlls', [])
-    return None
+    return None, None

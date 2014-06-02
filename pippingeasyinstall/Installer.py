@@ -19,6 +19,7 @@ import logging
 import os
 import sys
 import pkg_resources
+import subprocess
 
 __author__ = 'matth'
 
@@ -38,8 +39,13 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     dir = tempfile.mkdtemp(suffix='pippingeasyinstall')
     texe = os.path.abspath(os.path.join(dir, os.path.basename(exe)))
     shutil.copy(os.path.abspath(exe), texe)
-    app = application.Application.start('"%s"' % texe)
-    _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+    if exe.endswith('exe'):
+        app = application.Application.start('"%s"' % texe)
+        _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+    elif exe.endswith('msi'):
+        subprocess.check_call(['msiexec','/i',texe,'/quiet','/qn','/norestart'])
+    else:
+        raise ValueError('pipping-easy-install does not know how to install %s' % exe)
 
 def _press_buttons(app, dialogname, next_name, finish_name, next_count, finishdialogname=None):
     finishdialogname = finishdialogname or dialogname

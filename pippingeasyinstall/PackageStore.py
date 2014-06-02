@@ -141,7 +141,7 @@ _packages = {
                 "dlls" : [
                     {
                         "files": ["bin/tidy.dll"],
-                        "destination": "tidylib",
+                        "destination": "../..",
                         "name": "HTMLTidy",
                         "version" : "060405",
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",

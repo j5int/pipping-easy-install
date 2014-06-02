@@ -43,7 +43,14 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
         app = application.Application.start('"%s"' % texe)
         if "numpy" in exe:
             # numpy setup is weird
-            inst_app = application.Application.connect(title_re="Setup numpy*")
+            connect_to_installer = 0
+            while connect_to_installer < 100:
+                try:
+                    inst_app = application.Application.connect(title_re="Setup numpy*")
+                    break
+                except Exception:
+                    time.sleep(0.1)
+                    connect_to_installer += 1
             _press_buttons(inst_app, 'Setup', 'Next','Finish',next_count=next_count)
             app['Numpy super installer Setup: Completed']['Close'].SetFocus().Click()
         else:

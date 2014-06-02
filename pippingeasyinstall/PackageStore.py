@@ -267,6 +267,22 @@ _packages = {
             }
         }
     },
+    "SendKeys" : {
+        "latest_version" : "0.3",
+        "versions": {
+            "0.3" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "SendKeys-0.3.win32-py2.7.exe",
+                        "md5_digest" : "11336eb2347b20490ea233edecd448ed",
+                        "url" : "http://web.dyfis.net/SendKeys-0.3.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
     "Twisted" : {
         # For some reason the Twisted bdist_wininst installer for 11.1.0 isn't on PyPI
         "versions": {

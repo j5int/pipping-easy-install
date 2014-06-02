@@ -24,7 +24,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "msi",
+                        "packagetype" : "msi",
                         "filename" : "cx_Oracle-5.1.1-10g.win32-py2.7.msi",
                         "md5_digest" : "a7fd6ec9c66ca59f8c90af8e85a340a2",
                         "url" : "http://downloads.sourceforge.net/cx-oracle/cx_Oracle-5.1.1-10g.win32-py2.7.msi"
@@ -40,7 +40,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "bdist_wininst",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "lxml-3.3.5.win32-py2.7.exe",
                         "md5_digest" : "2c10ce9cab81e0155a019fb6c0c3e2e9",
                         "url" : "https://pypi.python.org/packages/2.7/l/lxml/lxml-3.3.5.win32-py2.7.exe"
@@ -51,7 +51,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "bdist_wininst",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "lxml-2.3.win32-py2.7.exe",
                         "md5_digest" : "9c02aae672870701377750121f5a6f84",
                         "url" : "https://pypi.python.org/packages/2.7/l/lxml/lxml-2.3.win32-py2.7.exe"
@@ -67,7 +67,7 @@ _packages = {
                 "urls": [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "bdist_wininst",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "matplotlib-1.1.0.win32-py2.7.exe",
                         "md5_digest" : "38d7caaa4be612b5b9b3cccca5c89aaf",
                         "url" : "http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-1.1.0/matplotlib-1.1.0.win32-py2.7.exe/download"
@@ -83,7 +83,7 @@ _packages = {
                 "urls": [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "bdist_wininst",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "numpy-1.6.1-win32-superpack-python2.7.exe",
                         "md5_digest" : "9642412608979d50f72413308f0e2444",
                         "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.6.1/numpy-1.6.1-win32-superpack-python2.7.exe/download"
@@ -100,7 +100,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "msi",
+                        "packagetype" : "msi",
                         "filename" : "pycrypto-2.3.win32-py2.7.msi",
                         "md5_digest" : "c3a73b85fb69608966d6d64e00e85cfd",
                         "url" : "http://non-us.download.sjsoft.com/opensource/non-us/pycrypto-2.3.win32-py2.7.msi"
@@ -116,7 +116,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "package_type" : "bdist_wininst",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "pyodbc-2.1.12.win32-py2.7.exe",
                         "md5_digest" : "0f426440b165922b1012bb5777952d09",
                         "url" : "http://pyodbc.googlecode.com/files/pyodbc-2.1.12.win32-py2.7.exe"

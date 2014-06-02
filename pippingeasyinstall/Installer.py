@@ -41,7 +41,13 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     shutil.copy(os.path.abspath(exe), texe)
     if exe.endswith('exe'):
         app = application.Application.start('"%s"' % texe)
-        _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+        if "numpy" in exe:
+            # numpy setup is weird
+            inst_app = application.Application.connect(title_re="Setup numpy*")
+            _press_buttons(inst_app, 'Setup', 'Next','Finish',next_count=next_count)
+            app['Numpy super installer Setup: Completed']['Close'].SetFocus().Click()
+        else:
+            _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
     elif exe.endswith('msi'):
         subprocess.check_call(['msiexec','/i',texe,'/quiet','/qn','/norestart'])
     else:

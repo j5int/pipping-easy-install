@@ -129,6 +129,15 @@ _packages = {
         "latest_version": "0.2.1",
         "versions": {
             "0.2.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pytidylib-0.2.1.win32.exe",
+                        "md5_digest" : "ce99b6a4b4ec24cf721a46a7aa84f890",
+                        "url" : "http://download.sjsoft.com/opensource/pytidylib-0.2.1/win32.exe"
+                    }
+                ],
                 "dlls" : [
                     {
                         "files": ["bin/tidy.dll"],

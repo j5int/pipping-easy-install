@@ -8,7 +8,7 @@ from pippingeasyinstall.RegisterPy import RegisterPy
 try:
     from pywinauto import application
 except:
-    pywinauto = None
+    application = None
 
 try:
     from pywinauto.findbestmatch import MatchError

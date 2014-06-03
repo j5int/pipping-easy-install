@@ -1,22 +1,5 @@
 
 _packages = {
-    # Let's see if pip will install the wheel of Pillow
-    #"Pillow"  : {
-    #    "latest_version" : "2.4.0",
-    #    "versions": {
-    #        "2.4.0" : {
-    #            "urls" : [
-    #                {
-    #                    "python_version" : "2.7",
-    #                    "packagetype" : "bdist_wininst",
-    #                    "filename": "Pillow-2.4.0.win32-py2.7.exe",
-    #                    "md5_digest": "6c181d7041c147c2293daf59af213c5e",
-    #                    "url": "https://pypi.python.org/packages/2.7/P/Pillow/Pillow-2.4.0.win32-py2.7.exe"
-    #                }
-    #            ]
-    #        }
-    #    }
-#    },
     "cx-Oracle": {
         "latest_version": "5.1.1",
         "versions": {
@@ -147,6 +130,22 @@ _packages = {
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
                         "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download"
                     },
+                ]
+            }
+        }
+    },
+    "python-ldap" : {
+        "latest_version" : "2.4.9",
+        "versions": {
+            "2.4.9" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "python-ldap-2.4.9.win32-py2.7.exe",
+                        "md5_digest" : "e8ba435ef2be486d70c16f56c226c60f",
+                        "url" : "http://download.sjsoft.com/opensource/python-ldap-2.4.9.win32-py2.7.exe"
+                    }
                 ]
             }
         }

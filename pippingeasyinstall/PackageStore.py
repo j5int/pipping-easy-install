@@ -103,7 +103,7 @@ _packages = {
                         "packagetype" : "msi",
                         "filename" : "pycrypto-2.3.win32-py2.7.msi",
                         "md5_digest" : "c3a73b85fb69608966d6d64e00e85cfd",
-                        "url" : "http://non-us.download.sjsoft.com/opensource/non-us/pycrypto-2.3.win32-py2.7.msi"
+                        "url" : "http://za-download.sjsoft.com/deps/pycrypto-2.3.win32-py2.7.msi"
                     }
                 ]
             }
@@ -135,7 +135,7 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "pytidylib-0.2.1.win32.exe",
                         "md5_digest" : "ce99b6a4b4ec24cf721a46a7aa84f890",
-                        "url" : "http://download.sjsoft.com/opensource/pytidylib-0.2.1/win32.exe"
+                        "url" : "http://download.sjsoft.com/opensource/pytidylib-0.2.1.win32.exe"
                     }
                 ],
                 "dlls" : [

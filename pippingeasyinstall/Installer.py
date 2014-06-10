@@ -116,7 +116,7 @@ def uninstall_python_module(package_name, cachedir):
                     msi_install = url
                     break
             if msi_install is not None:
-                 fname, md5sum = PyPiDownloader().download_file(msi_install[url], fname=msi_install['filename'], \
+                 fname, md5sum = PyPiDownloader().download_file(msi_install['url'], fname=msi_install['filename'], \
                                                                 md5_digest=msi_install.get('md5_digest',None), cachedir=cachedir,\
                                                                 out=sys.stdout)
                  if fname:

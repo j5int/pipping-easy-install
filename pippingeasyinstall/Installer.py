@@ -5,10 +5,11 @@ import time
 from zipfile import ZipFile
 from pippingeasyinstall.Downloader import Downloader, PyPiDownloader
 from pippingeasyinstall.RegisterPy import RegisterPy
+from pippingeasyinstall import PackageStore
 try:
     from pywinauto import application
 except:
-    pywinauto = None
+    application = None
 
 try:
     from pywinauto.findbestmatch import MatchError
@@ -19,6 +20,7 @@ import logging
 import os
 import sys
 import pkg_resources
+import subprocess
 
 __author__ = 'matth'
 
@@ -38,8 +40,29 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     dir = tempfile.mkdtemp(suffix='pippingeasyinstall')
     texe = os.path.abspath(os.path.join(dir, os.path.basename(exe)))
     shutil.copy(os.path.abspath(exe), texe)
-    app = application.Application.start('"%s"' % texe)
-    _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+    if exe.endswith('exe'):
+        app = application.Application.start('"%s"' % texe)
+        if "numpy" in exe:
+            # numpy setup is weird
+            connect_to_installer = 0
+            inst_app = None
+            while connect_to_installer < 100:
+                try:
+                    inst_app = application.Application.connect(title_re="Setup numpy*")
+                    break
+                except Exception:
+                    time.sleep(0.1)
+                    connect_to_installer += 1
+            if inst_app is None:
+                raise RuntimeError('Could not connect to numpy installer')
+            _press_buttons(inst_app, 'Setup', 'Next','Finish',next_count=next_count)
+            app['Numpy super installer Setup: Completed']['Close'].SetFocus().Click()
+        else:
+            _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+    elif exe.endswith('msi'):
+        subprocess.check_call(['msiexec','/i',texe,'/quiet','/qn','/norestart'])
+    else:
+        raise ValueError('pipping-easy-install does not know how to install %s' % exe)
 
 def _press_buttons(app, dialogname, next_name, finish_name, next_count, finishdialogname=None):
     finishdialogname = finishdialogname or dialogname
@@ -77,10 +100,29 @@ def install_dll(location, dll, zip, dest):
         f.write(dll_data)
 
 
-def uninstall_python_module(package_name):
+def uninstall_python_module(package_name, cachedir):
     install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%package_name))
     if not os.path.exists(install_log):
-        raise Exception('Cannot uninstall python module. Cannot find install log: %s', install_log)
+        # Look for the msi
+        version = package_version(package_name)
+        urls, dlls = PackageStore.find_package_urls(package_name, version)
+        if urls is None:
+            urls, dlls = PackageStore.find_package_urls(package_name)
+        if urls is not None:
+            msi_install = None
+            python_version = sys.version[:3]
+            for url in urls:
+                if url['python_version'] == python_version and url["packagetype"] == "msi":
+                    msi_install = url
+                    break
+            if msi_install is not None:
+                 fname, md5sum = PyPiDownloader().download_file(msi_install['url'], fname=msi_install['filename'], \
+                                                                md5_digest=msi_install.get('md5_digest',None), cachedir=cachedir,\
+                                                                out=sys.stdout)
+                 if fname:
+                     subprocess.check_call(['msiexec','/x',fname,'/quiet','/qn','/norestart'])
+                     return
+        raise Exception('Cannot uninstall python module. Cannot find msi or install log: %s', install_log)
 
     uninstall_exe = os.path.abspath(os.path.join(sys.prefix, 'Remove%s.exe'%package_name))
     if not os.path.exists(uninstall_exe):
@@ -126,7 +168,8 @@ def main():
                     print 'Package %s is not installed' % (package)
                     continue
 
-                uninstall_python_module(package)
+                cachedir = os.environ.get('PIP_DOWNLOAD_CACHE', None)
+                uninstall_python_module(package, cachedir)
 
             else:
                 if installed_version:
@@ -151,7 +194,12 @@ def main():
                         for dll, zip, dest in dlls:
                             install_dll(d.location, dll, zip, dest)
                 else:
-                    print "Installation completed, but package %s not installed!?" % (package_name)
+                    if exe.endswith('msi'):
+                        print "Installation complete, but package %s not installed.  This is an msi install, so "\
+                        "does not support multiple installs in different virtual environments on the same machine -"\
+                        "this is probably what has happened"
+                    else:
+                        print "Installation completed, but package %s not installed!?" % (package_name)
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,155 @@
 
 _packages = {
+    "cx-Oracle": {
+        "latest_version": "5.1.1",
+        "versions": {
+            "5.1.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "msi",
+                        "filename" : "cx_Oracle-5.1.1-10g.win32-py2.7.msi",
+                        "md5_digest" : "a7fd6ec9c66ca59f8c90af8e85a340a2",
+                        "url" : "http://downloads.sourceforge.net/cx-oracle/cx_Oracle-5.1.1-10g.win32-py2.7.msi"
+                    }
+                ]
+            }
+        }
+    },
+    "lxml" : {
+        "latest_version": "3.3.5",
+        "versions": {
+            "3.3.5" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "lxml-3.3.5.win32-py2.7.exe",
+                        "md5_digest" : "2c10ce9cab81e0155a019fb6c0c3e2e9",
+                        "url" : "https://pypi.python.org/packages/2.7/l/lxml/lxml-3.3.5.win32-py2.7.exe"
+                    }
+                ]
+            },
+            "2.3" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "lxml-2.3.win32-py2.7.exe",
+                        "md5_digest" : "9c02aae672870701377750121f5a6f84",
+                        "url" : "https://pypi.python.org/packages/2.7/l/lxml/lxml-2.3.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
+    "matplotlib": {
+        "latest_version": "1.1.0",
+        "versions": {
+            "1.1.0": {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "matplotlib-1.1.0.win32-py2.7.exe",
+                        "md5_digest" : "38d7caaa4be612b5b9b3cccca5c89aaf",
+                        "url" : "http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-1.1.0/matplotlib-1.1.0.win32-py2.7.exe/download"
+                    }
+                ]
+            }
+        }
+    },
+    "numpy": {
+        "latest_version" : "1.6.1",
+        "versions" : {
+            "1.6.1" : {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "numpy-1.6.1-win32-superpack-python2.7.exe",
+                        "md5_digest" : "9642412608979d50f72413308f0e2444",
+                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.6.1/numpy-1.6.1-win32-superpack-python2.7.exe/download"
+                    }
+                ]
+            }
+        }
+
+    },
+    "pycrypto": {
+        "latest_version": "2.3",
+        "versions": {
+            "2.3" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "msi",
+                        "filename" : "pycrypto-2.3.win32-py2.7.msi",
+                        "md5_digest" : "c3a73b85fb69608966d6d64e00e85cfd",
+                        "url" : "http://za-download.sjsoft.com/deps/pycrypto-2.3.win32-py2.7.msi"
+                    }
+                ]
+            }
+        }
+    },
+    "pyodbc" : {
+        "latest_version": "2.1.12",
+        "versions": {
+            "2.1.12" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pyodbc-2.1.12.win32-py2.7.exe",
+                        "md5_digest" : "0f426440b165922b1012bb5777952d09",
+                        "url" : "http://pyodbc.googlecode.com/files/pyodbc-2.1.12.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
+    "pytidylib": {
+        "latest_version": "0.2.1",
+        "versions": {
+            "0.2.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pytidylib-0.2.1.win32.exe",
+                        "md5_digest" : "ce99b6a4b4ec24cf721a46a7aa84f890",
+                        "url" : "http://download.sjsoft.com/opensource/pytidylib-0.2.1.win32.exe"
+                    }
+                ],
+                "dlls" : [
+                    {
+                        "files": ["bin/tidy.dll"],
+                        "destination": "../..",
+                        "name": "HTMLTidy",
+                        "version" : "060405",
+                        "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
+                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download"
+                    },
+                ]
+            }
+        }
+    },
+    "python-ldap" : {
+        "latest_version" : "2.4.9",
+        "versions": {
+            "2.4.9" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "python-ldap-2.4.9.win32-py2.7.exe",
+                        "md5_digest" : "e8ba435ef2be486d70c16f56c226c60f",
+                        "url" : "http://download.sjsoft.com/opensource/python-ldap-2.4.9.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
     "pywin32" : {
         "latest_version" : "218",
         "versions": {
@@ -120,6 +270,22 @@ _packages = {
                         "filename" : "py2exe-0.6.9.win32-py2.7.exe",
                         "md5_digest" : "b7899302e70596defe3b7e8c95cd15c1",
                         "url" : "http://downloads.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpy2exe%2Ffiles%2Fpy2exe%2F0.6.9%2F&ts=1373628132&use_mirror=tenet"
+                    }
+                ]
+            }
+        }
+    },
+    "SendKeys" : {
+        "latest_version" : "0.3",
+        "versions": {
+            "0.3" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "SendKeys-0.3.win32-py2.7.exe",
+                        "md5_digest" : "11336eb2347b20490ea233edecd448ed",
+                        "url" : "http://web.dyfis.net/SendKeys-0.3.win32-py2.7.exe"
                     }
                 ]
             }

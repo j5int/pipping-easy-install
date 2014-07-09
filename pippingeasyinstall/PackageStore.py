@@ -1,7 +1,7 @@
 
 _packages = {
     "cx-Oracle": {
-        "latest_version": "5.1.1",
+        "latest_version": "5.1.3",
         "versions": {
             "5.1.3" : {
                 "urls" : [
@@ -181,7 +181,7 @@ _packages = {
                         "python_version" : "2.7",
                         "packagetype" : "bdist_wininst",
                         "filename" : "pywin32-217.win32-py2.7.exe",
-                        "md5_digest" : "16e178ac18b49fa0d27ba0be90f460af",
+                        "md5_digest" : "42202e223b9d21079f397b9116093ac6",
                         "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1369749647&use_mirror=tenethttp://downloads.sourceforge.net/project/pywin32/pywin32/Build%20217/pywin32-217.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520217%2F&ts=1404913990&use_mirror=tenet"
                     }
                 ]

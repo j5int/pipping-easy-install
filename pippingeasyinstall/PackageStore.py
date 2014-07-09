@@ -3,6 +3,17 @@ _packages = {
     "cx-Oracle": {
         "latest_version": "5.1.1",
         "versions": {
+            "5.1.3" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "cx_Oracle-5.1.3-11g.win32-py2.7.exe",
+                        "md5_digest" : "c4618c499254ff9adf6db581b699e862",
+                        "url" : "https://pypi.python.org/packages/2.7/c/cx_Oracle/cx_Oracle-5.1.3-11g.win32-py2.7.exe"
+                    }
+                ]
+            },
             "5.1.1" : {
                 "urls" : [
                     {
@@ -163,6 +174,17 @@ _packages = {
                         "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1369749647&use_mirror=tenet"
                     }
                 ]
+            },
+            "217" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pywin32-217.win32-py2.7.exe",
+                        "md5_digest" : "16e178ac18b49fa0d27ba0be90f460af",
+                        "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1369749647&use_mirror=tenethttp://downloads.sourceforge.net/project/pywin32/pywin32/Build%20217/pywin32-217.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520217%2F&ts=1404913990&use_mirror=tenet"
+                    }
+                ]
             }
         }
     },
@@ -254,6 +276,17 @@ _packages = {
                         "filename" : "psutil-0.6.1.win32-py2.7.exe",
                         "md5_digest" : "8d73121603c0aaf87e0056bd615755f5",
                         "url" : "http://psutil.googlecode.com/files/psutil-0.6.1.win32-py2.7.exe"
+                    }
+                ]
+            },
+            "0.4.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "psutil-0.4.1.win32-py2.7.exe",
+                        "md5_digest" : "aae9ad6b466d3085bab177d3f3859cab",
+                        "url" : "https://pypi.python.org/packages/2.7/p/psutil/psutil-0.4.1.win32-py2.7.exe"
                     }
                 ]
             }

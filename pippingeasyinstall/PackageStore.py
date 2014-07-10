@@ -1,5 +1,21 @@
 
 _packages = {
+    "greenlet": {
+        "latest_version": "0.3.2",
+        "versions": {
+            "0.3.2": {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "greenlet-0.3.2.win32-py2.7.exe",
+                        "md5_digest" : "7e5cc074f6eede39a2b833ed772f1b41",
+                        "url" : "https://pypi.python.org/packages/2.7/g/greenlet/greenlet-0.3.2.win32-py2.7.exe"
+                    }
+                ]
+            }
+        }
+    },
     "cx-Oracle": {
         "latest_version": "5.1.3",
         "versions": {

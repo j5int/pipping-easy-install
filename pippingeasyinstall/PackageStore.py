@@ -26,7 +26,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "cx_Oracle-5.1.3-11g.win32-py2.7.exe",
                         "md5_digest" : "c4618c499254ff9adf6db581b699e862",
-                        "url" : "https://pypi.python.org/packages/2.7/c/cx_Oracle/cx_Oracle-5.1.3-11g.win32-py2.7.exe"
+                        "url" : "https://pypi.python.org/packages/2.7/c/cx_Oracle/cx_Oracle-5.1.3-11g.win32-py2.7.exe",
+                        "uninstall_name" : "cx_Oracle",
                     }
                 ]
             },

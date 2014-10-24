@@ -112,17 +112,26 @@ def uninstall_python_module(package_name, cachedir):
             msi_install = None
             python_version = sys.version[:3]
             for url in urls:
-                if url['python_version'] == python_version and url["packagetype"] == "msi":
-                    msi_install = url
-                    break
-            if msi_install is not None:
+                if url['python_version'] == python_version:
+                    if url["packagetype"] == "msi":
+                        msi_install = url
+                        break
+                    elif url['packagetype'] == 'bdist_wininst':
+                        if 'uninstall_name' in url:
+                            other_install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%url['uninstall_name']))
+                            if os.path.exists(other_install_log):
+                                install_log = other_install_log
+                                break
+
+            if not os.path.exists(install_log) and msi_install is not None:
                  fname, md5sum = PyPiDownloader().download_file(msi_install['url'], fname=msi_install['filename'], \
                                                                 md5_digest=msi_install.get('md5_digest',None), cachedir=cachedir,\
                                                                 out=sys.stdout)
                  if fname:
                      subprocess.check_call(['msiexec','/x',fname,'/quiet','/qn','/norestart'])
                      return
-        raise Exception('Cannot uninstall python module. Cannot find msi or install log: %s', install_log)
+        if not os.path.exists(install_log):
+            raise Exception('Cannot uninstall python module. Cannot find msi or install log: %s', install_log)
 
     uninstall_exe = os.path.abspath(os.path.join(sys.prefix, 'Remove%s.exe'%package_name))
     if not os.path.exists(uninstall_exe):

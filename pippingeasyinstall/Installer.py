@@ -101,7 +101,8 @@ def install_dll(location, dll, zip, dest):
 
 
 def uninstall_python_module(package_name, cachedir):
-    install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%package_name))
+    uninstall_name = package_name
+    install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%uninstall_name))
     if not os.path.exists(install_log):
         # Look for the msi
         version = package_version(package_name)
@@ -121,6 +122,7 @@ def uninstall_python_module(package_name, cachedir):
                             other_install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%url['uninstall_name']))
                             if os.path.exists(other_install_log):
                                 install_log = other_install_log
+                                uninstall_name = url['uninstall_name']
                                 break
 
             if not os.path.exists(install_log) and msi_install is not None:
@@ -133,7 +135,7 @@ def uninstall_python_module(package_name, cachedir):
         if not os.path.exists(install_log):
             raise Exception('Cannot uninstall python module. Cannot find msi or install log: %s', install_log)
 
-    uninstall_exe = os.path.abspath(os.path.join(sys.prefix, 'Remove%s.exe'%package_name))
+    uninstall_exe = os.path.abspath(os.path.join(sys.prefix, 'Remove%s.exe'%uninstall_name))
     if not os.path.exists(uninstall_exe):
         raise Exception('Cannot uninstall python module. Cannot find uninstall exe: %s', uninstall_exe)
 

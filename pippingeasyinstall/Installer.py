@@ -41,24 +41,28 @@ def install_python_module(exe, next_count=3, wait_for_finish=120):
     texe = os.path.abspath(os.path.join(dir, os.path.basename(exe)))
     shutil.copy(os.path.abspath(exe), texe)
     if exe.endswith('exe'):
-        app = application.Application.start('"%s"' % texe)
-        if "numpy" in exe:
-            # numpy setup is weird
-            connect_to_installer = 0
-            inst_app = None
-            while connect_to_installer < 100:
-                try:
-                    inst_app = application.Application.connect(title_re="Setup numpy*")
-                    break
-                except Exception:
-                    time.sleep(0.1)
-                    connect_to_installer += 1
-            if inst_app is None:
-                raise RuntimeError('Could not connect to numpy installer')
-            _press_buttons(inst_app, 'Setup', 'Next','Finish',next_count=next_count)
-            app['Numpy super installer Setup: Completed']['Close'].SetFocus().Click()
+        if 'wxPython' in exe:
+            #wxPython uses innosetup
+            subprocess.check_call([exe,'/SILENT','/NORESTART','/DIR=%s'%os.path.join(sys.prefix,"Lib", "site-packages")])
         else:
-            _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
+            app = application.Application.start('"%s"' % texe)
+            if "numpy" in exe:
+                # numpy setup is weird
+                connect_to_installer = 0
+                inst_app = None
+                while connect_to_installer < 100:
+                    try:
+                        inst_app = application.Application.connect(title_re="Setup numpy*")
+                        break
+                    except Exception:
+                        time.sleep(0.1)
+                        connect_to_installer += 1
+                if inst_app is None:
+                    raise RuntimeError('Could not connect to numpy installer')
+                _press_buttons(inst_app, 'Setup', 'Next','Finish',next_count=next_count)
+                app['Numpy super installer Setup: Completed']['Close'].SetFocus().Click()
+            else:
+                _press_buttons(app, 'Setup', 'Next', 'Finish', next_count=next_count)
     elif exe.endswith('msi'):
         subprocess.check_call(['msiexec','/i',texe,'/quiet','/qn','/norestart'])
     else:
@@ -101,6 +105,17 @@ def install_dll(location, dll, zip, dest):
 
 
 def uninstall_python_module(package_name, cachedir):
+    if package_name == 'wxPython':
+        python_exe = os.path.join(sys.prefix, 'python.exe')
+        if not os.path.exists(python_exe):
+            raise Exception("Cannot uninstall wxPython: cannot find python.exe here: %s" % python_exe)
+        wx_install_dir = subprocess.check_output([os.path.join(sys.prefix, 'python.exe'), '-c', "import wx; import os; print os.path.abspath(os.path.dirname(os.path.dirname(wx.__file__)))"]).strip()
+        uninstall_exe = os.path.join(wx_install_dir, 'unins000.exe')
+        if not os.path.exists(uninstall_exe):
+            raise Exception('Cannot uninstall python module. Cannot find uninstall exe: %s', uninstall_exe)
+        subprocess.check_call([uninstall_exe, '/SILENT', '/NORESTART'])
+        return
+
     uninstall_name = package_name
     install_log = os.path.abspath(os.path.join(sys.prefix, '%s-wininst.log'%uninstall_name))
     if not os.path.exists(install_log):
@@ -144,6 +159,15 @@ def uninstall_python_module(package_name, cachedir):
     _press_buttons(app, 'Please confirm', 'Yes', 'OK', next_count=1, finishdialogname='Uninstall Finished!')
 
 def package_version(package):
+    if package == 'wxPython':
+        python_exe = os.path.join(sys.prefix, 'python.exe')
+        if not os.path.exists(python_exe):
+            raise Exception("Cannot check for wxPython version: cannot find python.exe here: %s" % python_exe)
+        try:
+            v = subprocess.check_output([os.path.join(sys.prefix, 'python.exe'), '-c', "import wx; print wx.__version__"], stderr=open(os.devnull, "w")).strip()
+            return v
+        except Exception:
+            return None
     try:
         d = pkg_resources.get_distribution(package)
         return d.version
@@ -151,10 +175,18 @@ def package_version(package):
         return None
 
 def main():
+    for h in logging.getLogger().handlers:
+        logging.getLogger().removeHandler(h)
+
     parser = argparse.ArgumentParser(description='Pipping Easy Install')
     parser.add_argument('packages', nargs='+', help="Stuff to install")
     parser.add_argument('-u', '--uninstall', action='store_true', dest='uninstall', help='Uninstall instead')
+    parser.add_argument("-l", "--loglevel", default="info", help="Set logging level",
+                          choices=("debug", "info", "warn", "error", "critical"))
     args = parser.parse_args()
+
+    loglevel = getattr(logging, args.loglevel.upper())
+    logging.getLogger().setLevel(loglevel)
 
     for p in args.packages:
         package, version = p, None
@@ -200,10 +232,11 @@ def main():
                 installed_version = package_version(package_name)
                 if installed_version:
                     print '%s version %s now installed' % (package_name, installed_version)
-                    d = pkg_resources.get_distribution(package)
-                    if d and getattr(d, 'location', None):
-                        for dll, zip, dest in dlls:
-                            install_dll(d.location, dll, zip, dest)
+                    if dlls:
+                        d = pkg_resources.get_distribution(package)
+                        if d and getattr(d, 'location', None):
+                            for dll, zip, dest in dlls:
+                                install_dll(d.location, dll, zip, dest)
                 else:
                     if exe.endswith('msi'):
                         print "Installation complete, but package %s not installed.  This is an msi install, so "\

@@ -7,7 +7,7 @@ _packages = {
                 "urls": [
                     {
                         "python_version" : "2.7",
-                        "packagetype" : "bdist_wininst",
+                        "packagetype" : "innosetup",
                         "filename" : "wxPython3.0-win32-3.0.1.1-py27.exe",
                         "md5_digest" : "2488a3b3065530da67e7cebba8b32aac",
                         "url" : "http://downloads.sourceforge.net/wxpython/wxPython3.0-win32-3.0.1.1-py27.exe"

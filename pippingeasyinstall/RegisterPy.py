@@ -11,6 +11,7 @@
 # http://www.pythonware.com/products/works/articles/regpy20.htm
 
 import sys
+import os
 
 try:
     from _winreg import *
@@ -20,6 +21,8 @@ except:
 # tweak as necessary
 version = sys.version[:3]
 installpath = sys.prefix
+if not installpath.endswith(os.path.sep):
+    installpath += os.path.sep
 
 regpath = "SOFTWARE\\Python\\Pythoncore\\%s\\" % (version)
 installkey = "InstallPath"
@@ -52,19 +55,21 @@ class RegisterPy(object):
                 installkey: "" if self.created else QueryValue(reg, installkey),
                 pythonkey: "" if self.created else QueryValue(reg, pythonkey)
             }
-            if self.prev_values[installkey] != installpath:
+            if self.prev_values[installkey].rstrip("\\").lower() != installpath.rstrip("\\").lower():
                 SetValue(reg, installkey, REG_SZ, installpath)
                 self.a_set = True
-            try:
-                if self.prev_values[pythonkey] != pythonpath:
-                    SetValue(reg, pythonkey, REG_SZ, pythonpath)
-                    self.b_set = True
-            except:
-                if self.a_set and not self.created:
-                    SetValue(reg, installkey, REG_SZ, self.prev_values[installkey])
-                raise
+                try:
+                    if self.prev_values[pythonkey].lower() != pythonpath.lower():
+                        SetValue(reg, pythonkey, REG_SZ, pythonpath)
+                        self.b_set = True
+                except:
+                    if self.a_set and not self.created:
+                        SetValue(reg, installkey, REG_SZ, self.prev_values[installkey])
+                    raise
         finally:
             CloseKey(reg)
+
+
 
     def __exit__(self, exc_type, exc_value, traceback):
         reg = OpenKey(HKEY_LOCAL_MACHINE if self.is_all_users else HKEY_CURRENT_USER, regpath)

@@ -15,20 +15,17 @@ def get_version():
 setup(
     name             = 'pipping-easy-install',
     version          = get_version(),
-    license          =  'MIT',
+    license          = 'Apache License, Version 2.0',
     description      = 'Installs Python win32 executable installers using pywinauto.',
-    long_description = \
-        """
-        Installs Python win32 executable installers using pywinauto, hacking the registry first, so they can be installed in to a virtualenv.
-        """,
+    long_description = "Installs Python win32 executable installers using pywinauto, hacking the registry first, so they can be installed in to a virtualenv.",
     author           = 'Matthew Hampton',
-    author_email     = 'support@sjsoft.com',
+    author_email     = 'support@j5int.com',
     packages         = ['pippingeasyinstall'],
     zip_safe = False,
     install_requires =  ["pywinauto"] if "win" in sys.platform else []
     ,
     keywords         = 'easy_install pip windows',
-    url              = 'https://github.com/matthewhampton/warden-installer',
+    url              = 'https://github.com/st-james-software/pipping-easy-install',
     entry_points     = {
         'console_scripts': [
             'pipping_easy_install = pippingeasyinstall.Installer:main',
@@ -37,10 +34,11 @@ setup(
     classifiers      = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache Software License',
         'Operating System :: Microsoft :: Windows',
-        'Programming Language :: Python',
         'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Python Modules'
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2 :: Only',
     ]
 )

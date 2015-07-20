@@ -1,8 +1,19 @@
 
 _packages = {
     "wxPython": {
-        "latest_version": "3.0.1.1",
+        "latest_version": "3.0.2.0",
         "versions": {
+            "3.0.2.0": {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "innosetup",
+                        "filename" : "wxPython3.0-win32-3.0.1.1-py27.exe",
+                        "md5_digest" : "c0119e46357dcfc480d50825c64a90c2",
+                        "url" : "http://downloads.sourceforge.net/wxpython/wxPython3.0-win32-3.0.2.0-py27.exe"
+                    }
+                ]
+            },
             "3.0.1.1": {
                 "urls": [
                     {
@@ -33,8 +44,20 @@ _packages = {
         }
     },
     "cx-Oracle": {
-        "latest_version": "5.1.3",
+        "latest_version": "5.2",
         "versions": {
+            "5.2" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "cx_Oracle-5.2-11g.win32-py2.7-2.exe",
+                        "md5_digest" : "94a2b3dd0922f07d613ed1b67a14b48c",
+                        "url" : "https://pypi.python.org/packages/2.7/c/cx_Oracle/cx_Oracle-5.2-11g.win32-py2.7-2.exe",
+                        "uninstall_name" : "cx_Oracle",
+                    }
+                ]
+            },
             "5.1.3" : {
                 "urls" : [
                     {
@@ -61,8 +84,19 @@ _packages = {
         }
     },
     "lxml" : {
-        "latest_version": "3.3.5",
+        "latest_version": "3.4.4",
         "versions": {
+            "3.4.4" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "lxml-3.4.4.win32-py2.7.exe",
+                        "md5_digest" : "f69924a6a43d992bf91daf8b0cb25db2",
+                        "url" : "https://pypi.python.org/packages/2.7/l/lxml/lxml-3.4.4.win32-py2.7.exe"
+                    }
+                ]
+            },
             "3.3.5" : {
                 "urls" : [
                     {
@@ -88,8 +122,19 @@ _packages = {
         }
     },
     "matplotlib": {
-        "latest_version": "1.1.0",
+        "latest_version": "1.4.3",
         "versions": {
+            "1.4.3": {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "matplotlib-1.4.3.win32-py2.7.exe",
+                        "md5_digest" : "f43c20480a1673185afefc7d4848a1d2",
+                        "url" : "https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.4.3/windows/matplotlib-1.4.3.win32-py2.7.exe"
+                    }
+                ]
+            },
             "1.1.0": {
                 "urls": [
                     {
@@ -104,8 +149,19 @@ _packages = {
         }
     },
     "numpy": {
-        "latest_version" : "1.6.1",
+        "latest_version" : "1.9.2",
         "versions" : {
+            "1.9.2" : {
+                "urls": [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "numpy-1.9.2-win32-superpack-python2.7.exe",
+                        "md5_digest" : "694e11489cd5340e06d01f19866ecf3b",
+                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.9.2/numpy-1.9.2-win32-superpack-python2.7.exe/download"
+                    }
+                ]
+            },
             "1.6.1" : {
                 "urls": [
                     {
@@ -121,8 +177,19 @@ _packages = {
 
     },
     "pycrypto": {
-        "latest_version": "2.3",
+        "latest_version": "2.6.1",
         "versions": {
+            "2.6.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pycrypto-2.6.1.win32-py2.7.exe",
+                        "md5_digest" : "1a8cec46705cc83fcd77d24b6c9d079c",
+                        "url" : "http://za-download.sjsoft.com/deps/pycrypto-2.6.1.win32-py2.7.exe"
+                    }
+                ]
+            },
             "2.3" : {
                 "urls" : [
                     {
@@ -153,8 +220,29 @@ _packages = {
         }
     },
     "pytidylib": {
-        "latest_version": "0.2.1",
+        "latest_version": "0.2.4",
         "versions": {
+            "0.2.4" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pytidylib-0.2.4.win32.exe",
+                        "md5_digest" : "f06755ead3aaff7369d8d4f4ca7610ea",
+                        "url" : "http://download.sjsoft.com/opensource/pytidylib-0.2.4.win32.exe"
+                    }
+                ],
+                "dlls" : [
+                    {
+                        "files": ["bin/tidy.dll"],
+                        "destination": "../..",
+                        "name": "HTMLTidy",
+                        "version" : "060405",
+                        "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
+                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download"
+                    },
+                ]
+            },
             "0.2.1" : {
                 "urls" : [
                     {
@@ -179,8 +267,19 @@ _packages = {
         }
     },
     "python-ldap" : {
-        "latest_version" : "2.4.9",
+        "latest_version" : "2.4.19",
         "versions": {
+            "2.4.19" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "python-ldap-2.4.19.win32-py2.7.exe",
+                        "md5_digest" : "026f8da16897d31339f50f166bce2621",
+                        "url" : "https://pypi.python.org/packages/2.7/p/python-ldap/python-ldap-2.4.19.win32-py2.7.exe"
+                    }
+                ]
+            },
             "2.4.9" : {
                 "urls" : [
                     {
@@ -195,8 +294,19 @@ _packages = {
         }
     },
     "pywin32" : {
-        "latest_version" : "218",
+        "latest_version" : "219",
         "versions": {
+            "219" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "pywin32-219.win32-py2.7.exe",
+                        "md5_digest" : "f270e9f88155f649fc1a6c2f85aa128d",
+                        "url" : "http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download"
+                    }
+                ]
+            },
             "218" : {
                 "urls" : [
                     {
@@ -288,8 +398,19 @@ _packages = {
         }
     },
     "psutil" : {
-        "latest_version" : "0.7.0",
+        "latest_version" : "3.0.1",
         "versions": {
+            "3.0.1" : {
+                "urls" : [
+                    {
+                        "python_version" : "2.7",
+                        "packagetype" : "bdist_wininst",
+                        "filename" : "psutil-3.0.1.win32-py2.7.exe",
+                        "md5_digest" : "38444c787142f33c4f7b0c5cd0a2dedf",
+                        "url" : "https://pypi.python.org/packages/2.7/p/psutil/psutil-3.0.1.win32-py2.7.exe"
+                    }
+                ]
+            },
             "0.7.0" : {
                 "urls" : [
                     {

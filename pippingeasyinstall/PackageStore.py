@@ -183,7 +183,7 @@ _packages = {
                 "urls" : [
                     {
                         "python_version" : "2.7",
-                        "packagetype" : "exe",
+                        "packagetype" : "bdist_wininst",
                         "filename" : "pycrypto-2.6.1.win32-py2.7.exe",
                         "md5_digest" : "1a8cec46705cc83fcd77d24b6c9d079c",
                         "url" : "http://za-download.sjsoft.com/deps/pycrypto-2.6.1.win32-py2.7.exe"

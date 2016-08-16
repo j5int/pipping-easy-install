@@ -1,4 +1,5 @@
-
+import sys
+from os.path import dirname
 _packages = {
     "wxPython": {
         "latest_version": "3.0.2.0",
@@ -235,7 +236,7 @@ _packages = {
                 "dlls" : [
                     {
                         "files": ["bin/tidy.dll"],
-                        "destination": "../..",
+                        "destination": dirname(sys.executable),
                         "name": "HTMLTidy",
                         "version" : "060405",
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
@@ -256,7 +257,7 @@ _packages = {
                 "dlls" : [
                     {
                         "files": ["bin/tidy.dll"],
-                        "destination": "../..",
+                        "destination": dirname(sys.executable),
                         "name": "HTMLTidy",
                         "version" : "060405",
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",

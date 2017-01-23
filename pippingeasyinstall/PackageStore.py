@@ -304,7 +304,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "pywin32-219.win32-py2.7.exe",
                         "md5_digest" : "f270e9f88155f649fc1a6c2f85aa128d",
-                        "url" : "http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download"
+                        "url" : "http://sourceforge.net/projects/pywin32/files/pywin32/Build%20219/pywin32-219.win32-py2.7.exe/download",
+                        "verify_ssl": False
                     }
                 ]
             },

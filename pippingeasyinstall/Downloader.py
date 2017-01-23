@@ -121,7 +121,8 @@ class PyPiDownloader(Downloader):
             return None
         matching_urls = sorted(matching_urls, key=lambda u: u['packagetype'])
 
-        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0].get('md5_digest',None), cachedir=cachedir, out=out)
+        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0].get('md5_digest',None), cachedir=cachedir, out=out,
+                                  verify_ssl=matching_urls[0].get('verify_ssl', True))
 
 
 

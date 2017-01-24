@@ -80,7 +80,8 @@ _packages = {
                         "packagetype" : "msi",
                         "filename" : "cx_Oracle-5.1.1-10g.win32-py2.7.msi",
                         "md5_digest" : "a7fd6ec9c66ca59f8c90af8e85a340a2",
-                        "url" : "http://downloads.sourceforge.net/cx-oracle/cx_Oracle-5.1.1-10g.win32-py2.7.msi"
+                        "url" : "http://downloads.sourceforge.net/cx-oracle/cx_Oracle-5.1.1-10g.win32-py2.7.msi",
+                        "verify_ssl": False
                     }
                 ]
             }
@@ -134,7 +135,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "matplotlib-1.4.3.win32-py2.7.exe",
                         "md5_digest" : "f43c20480a1673185afefc7d4848a1d2",
-                        "url" : "https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.4.3/windows/matplotlib-1.4.3.win32-py2.7.exe"
+                        "url" : "https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.4.3/windows/matplotlib-1.4.3.win32-py2.7.exe",
+                        "verify_ssl": False
                     }
                 ]
             },
@@ -145,7 +147,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "matplotlib-1.1.0.win32-py2.7.exe",
                         "md5_digest" : "38d7caaa4be612b5b9b3cccca5c89aaf",
-                        "url" : "http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-1.1.0/matplotlib-1.1.0.win32-py2.7.exe/download"
+                        "url" : "http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-1.1.0/matplotlib-1.1.0.win32-py2.7.exe/download",
+                        "verify_ssl": False
                     }
                 ]
             }
@@ -161,7 +164,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "numpy-1.9.2-win32-superpack-python2.7.exe",
                         "md5_digest" : "694e11489cd5340e06d01f19866ecf3b",
-                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.9.2/numpy-1.9.2-win32-superpack-python2.7.exe/download"
+                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.9.2/numpy-1.9.2-win32-superpack-python2.7.exe/download",
+                        "verify_ssl": False
                     }
                 ]
             },
@@ -172,7 +176,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "numpy-1.6.1-win32-superpack-python2.7.exe",
                         "md5_digest" : "9642412608979d50f72413308f0e2444",
-                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.6.1/numpy-1.6.1-win32-superpack-python2.7.exe/download"
+                        "url" : "http://sourceforge.net/projects/numpy/files/NumPy/1.6.1/numpy-1.6.1-win32-superpack-python2.7.exe/download",
+                        "verify_ssl": False
                     }
                 ]
             }
@@ -242,7 +247,8 @@ _packages = {
                         "name": "HTMLTidy",
                         "version" : "060405",
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
-                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download"
+                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download",
+                        "verify_ssl": False
                     },
                 ]
             },
@@ -263,7 +269,8 @@ _packages = {
                         "name": "HTMLTidy",
                         "version" : "060405",
                         "md5_digest" : "3d716c67a4e35c43042b464abbcbea47",
-                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download"
+                        "url": "http://prdownloads.sourceforge.net/int64/tidy-060405-dll-fast.zip?download",
+                        "verify_ssl": False
                     },
                 ]
             }
@@ -318,7 +325,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "pywin32-218.win32-py2.7.exe",
                         "md5_digest" : "16e178ac18b49fa0d27ba0be90f460af",
-                        "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1369749647&use_mirror=tenet"
+                        "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1369749647&use_mirror=tenet",
+                        "verify_ssl": False
                     }
                 ]
             },
@@ -329,7 +337,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "pywin32-217.win32-py2.7.exe",
                         "md5_digest" : "42202e223b9d21079f397b9116093ac6",
-                        "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20217/pywin32-217.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520217%2F&ts=1404913990&use_mirror=tenet"
+                        "url" : "http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20217/pywin32-217.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520217%2F&ts=1404913990&use_mirror=tenet",
+                        "verify_ssl": False
                     }
                 ]
             }
@@ -460,7 +469,8 @@ _packages = {
                         "packagetype" : "bdist_wininst",
                         "filename" : "py2exe-0.6.9.win32-py2.7.exe",
                         "md5_digest" : "b7899302e70596defe3b7e8c95cd15c1",
-                        "url" : "http://downloads.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpy2exe%2Ffiles%2Fpy2exe%2F0.6.9%2F&ts=1373628132&use_mirror=tenet"
+                        "url" : "http://downloads.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpy2exe%2Ffiles%2Fpy2exe%2F0.6.9%2F&ts=1373628132&use_mirror=tenet",
+                        "verify_ssl": False
                     }
                 ]
             }

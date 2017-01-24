@@ -85,7 +85,7 @@ class PyPiDownloader(Downloader):
             (fname, actual_md5_digest) = self._download_package(urls, package_name, version, python_version, python_platform, cachedir, out)
             downloaded_dlls = []
             for dll in dlls:
-                (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out)
+                (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out, verify_ssl=dll.get('verify_ssl', True))
                 for file in dll['files']:
                     downloaded_dlls.append((file, zip_fname, dll['destination']))
 

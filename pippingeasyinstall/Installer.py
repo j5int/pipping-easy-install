@@ -200,7 +200,7 @@ def main():
         elif package.startswith('http'):
             if args.uninstall:
                 raise ValueError('Cannot uninstall from web url: please use package name')
-            (exe, md5) = Downloader().download_file(package, os.path.basename(package).split['?'][0].split('#')[0], out=sys.stdout)
+            (exe, md5) = Downloader().download_file(package, os.path.basename(package).split('?')[0].split('#')[0], out=sys.stdout)
         else:
             if '==' in p:
                 (package,version) = p.split('==')

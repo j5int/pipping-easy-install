@@ -6,6 +6,7 @@ import sys
 import urllib
 import os
 import hashlib
+import ssl
 from pippingeasyinstall import PackageStore
 
 class PackageNotFoundException(Exception):
@@ -21,7 +22,7 @@ class Downloader(object):
                 self.out.flush()
                 self.printed_out = progress
 
-    def download_file(self, url, fname=None, md5_digest=None, cachedir=None, out=None):
+    def download_file(self, url, fname=None, md5_digest=None, cachedir=None, out=None, verify_ssl=True):
 
         if fname is None:
             fname = os.path.basename(url.split('?')[0].split('#')[0])
@@ -38,7 +39,7 @@ class Downloader(object):
         if os.path.exists(fname):
             return (fname, actual_md5_digest)
 
-        self._download_file(url, fname, out=out)
+        self._download_file(url, fname, out=out, verify_ssl=verify_ssl)
 
         with open(fname, 'rb') as f:
             actual_md5_digest = hashlib.md5(f.read()).hexdigest()
@@ -48,10 +49,13 @@ class Downloader(object):
 
         return (fname, actual_md5_digest)
 
-    def _download_file(self, url, fname, out=None):
+    def _download_file(self, url, fname, out=None, verify_ssl=True):
         self.printed_out = 0
         self.out = out
-        urllib.urlretrieve(url, fname, self.reporthook)
+        if verify_ssl:
+            urllib.urlretrieve(url, fname, self.reporthook)
+        else:
+            urllib.urlretrieve(url, fname, self.reporthook, context=ssl._create_unverified_context())
         if out:
             out.write('\n')
 
@@ -81,7 +85,7 @@ class PyPiDownloader(Downloader):
             (fname, actual_md5_digest) = self._download_package(urls, package_name, version, python_version, python_platform, cachedir, out)
             downloaded_dlls = []
             for dll in dlls:
-                (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out)
+                (zip_fname, actual_md5_digest) = self.download_file(dll['url'], fname=None, md5_digest=dll['md5_digest'], cachedir=cachedir, out=out, verify_ssl=dll.get('verify_ssl', True))
                 for file in dll['files']:
                     downloaded_dlls.append((file, zip_fname, dll['destination']))
 
@@ -117,7 +121,8 @@ class PyPiDownloader(Downloader):
             return None
         matching_urls = sorted(matching_urls, key=lambda u: u['packagetype'])
 
-        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0].get('md5_digest',None), cachedir=cachedir, out=out)
+        return self.download_file(matching_urls[0]['url'], fname=matching_urls[0]['filename'], md5_digest=matching_urls[0].get('md5_digest',None), cachedir=cachedir, out=out,
+                                  verify_ssl=matching_urls[0].get('verify_ssl', True))
 
 
 
